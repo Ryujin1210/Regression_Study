@@ -3,41 +3,17 @@ import pandas as pd
 import numpy as np
 import joblib
 import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 
 # 페이지 설정
 st.set_page_config(page_title="학생 성과 요인에 따른 성적 예측", page_icon="🎓")
 
-# 한글 폰트 설정
-# 배포 환경 대응 폰트 설정
-def setup_matplotlib_korean():
-    # 시스템에서 사용 가능한 폰트 확인
-    available_fonts = [f.name for f in fm.fontManager.ttflist]
-    
-    # 한글 지원 폰트 우선순위
-    korean_fonts = [
-        'Noto Sans CJK KR', 'Noto Sans KR', 'Malgun Gothic', 
-        'AppleGothic', 'Dotum', 'Gulim', 'DejaVu Sans'
-    ]
-    
-    selected_font = 'DejaVu Sans'  # 기본값
-    
-    for font in korean_fonts:
-        if font in available_fonts:
-            selected_font = font
-            break
-    
-    plt.rcParams['font.family'] = selected_font
-    plt.rcParams['axes.unicode_minus'] = False
-    
-    return selected_font
 
-# 앱 시작 시 실행
-if 'font_setup' not in st.session_state:
-    font_name = setup_matplotlib_korean()
-    st.session_state.font_setup = True
-    print(f"Using font: {font_name}")
-plt.rcParams['axes.unicode_minus'] = False
+# 배포 폰트 설정 - Streamlit Cloud 환경용
+plt.rcParams['font.family'] = 'DejaVu Sans'
+
+# # 한글 폰트 설정
+# plt.rcParams['font.family'] = 'AppleGothic'
+# plt.rcParams['axes.unicode_minus'] = False
 
 # 모델 로딩
 @st.cache_resource
@@ -208,8 +184,8 @@ if st.button('🎯 성적 예측하기', type='primary'):
                    f'{height:.1f}',
                    ha='center', va='bottom')
         
-        ax.set_ylabel('예측 점수')
-        ax.set_title('모델별 성적 예측')
+        ax.set_ylabel('Predict Score')
+        ax.set_title('Model Performance')
         plt.xticks(rotation=45)
         st.pyplot(fig)
         
