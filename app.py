@@ -8,7 +8,21 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="학생 성과 요인에 따른 성적 예측", page_icon="🎓")
 
 # 한글 폰트 설정
-plt.rcParams['font.family'] = 'AppleGothic'
+# 배포 환경에서 안전한 폰트 설정
+def set_korean_font():
+    try:
+        # 여러 폰트를 순서대로 시도
+        fonts = ['DejaVu Sans', 'Liberation Sans', 'Arial Unicode MS', 'sans-serif']
+        for font in fonts:
+            plt.rcParams['font.family'] = font
+            break
+    except:
+        plt.rcParams['font.family'] = 'sans-serif'
+    
+    plt.rcParams['axes.unicode_minus'] = False
+
+# 앱 시작 시 폰트 설정
+set_korean_font()
 plt.rcParams['axes.unicode_minus'] = False
 
 # 모델 로딩
