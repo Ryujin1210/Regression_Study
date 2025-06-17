@@ -58,7 +58,7 @@ tab1, tab2, tab3 = st.tabs(['📚 학습 정보', '👨‍👩‍👧‍👦 가
 with tab1:
     col1, col2 = st.columns(2)
     with col1:
-        study_hours = st.slider('주간 학습 시간 (시간/주)', 0, 100, 20)
+        study_hours = st.slider('주간 학습 시간 (시간/주)', 0, 50, 20)
         attendance = st.slider('출석률 (%)', 0, 100, 85)
         prev_score = st.slider('이전 시험 점수', 0, 100, 75)
         sleep_hours = st.slider('평균 수면 시간 (시간/일)', 0, 12, 7)
