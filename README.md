@@ -133,6 +133,10 @@
 - **배포 환경 설정**: requirements.txt를 통한 의존성 관리
 - **자동 배포**: Github push 시 자동 재배포
 
+### **스크린샷**
+<img width="1318" alt="image" src="https://github.com/user-attachments/assets/95f4cfad-cbb5-4a23-ab84-89e9b11f3d11" />
+
+
 ## 😭 아쉬운 점
 
 - 더 좋은 모델들도 많지만 기초 학습부터 해보았기에 모델의 정확도가 뛰어나진 않았던것이 아쉬웠던 경험입니다.
