@@ -3,26 +3,40 @@ import pandas as pd
 import numpy as np
 import joblib
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 
 # 페이지 설정
 st.set_page_config(page_title="학생 성과 요인에 따른 성적 예측", page_icon="🎓")
 
 # 한글 폰트 설정
-# 배포 환경에서 안전한 폰트 설정
-def set_korean_font():
-    try:
-        # 여러 폰트를 순서대로 시도
-        fonts = ['DejaVu Sans', 'Liberation Sans', 'Arial Unicode MS', 'sans-serif']
-        for font in fonts:
-            plt.rcParams['font.family'] = font
-            break
-    except:
-        plt.rcParams['font.family'] = 'sans-serif'
+# 배포 환경 대응 폰트 설정
+def setup_matplotlib_korean():
+    # 시스템에서 사용 가능한 폰트 확인
+    available_fonts = [f.name for f in fm.fontManager.ttflist]
     
+    # 한글 지원 폰트 우선순위
+    korean_fonts = [
+        'Noto Sans CJK KR', 'Noto Sans KR', 'Malgun Gothic', 
+        'AppleGothic', 'Dotum', 'Gulim', 'DejaVu Sans'
+    ]
+    
+    selected_font = 'DejaVu Sans'  # 기본값
+    
+    for font in korean_fonts:
+        if font in available_fonts:
+            selected_font = font
+            break
+    
+    plt.rcParams['font.family'] = selected_font
     plt.rcParams['axes.unicode_minus'] = False
+    
+    return selected_font
 
-# 앱 시작 시 폰트 설정
-set_korean_font()
+# 앱 시작 시 실행
+if 'font_setup' not in st.session_state:
+    font_name = setup_matplotlib_korean()
+    st.session_state.font_setup = True
+    print(f"Using font: {font_name}")
 plt.rcParams['axes.unicode_minus'] = False
 
 # 모델 로딩
